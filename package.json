@@ -8,7 +8,12 @@
     "server": "nodemon server"
   },
   "author": "Abhinav Bandaru",
-  "contributors":["Geeth Charan", "Rupsa Dhar", "Shivank Thakur", "Rishi"],
+  "contributors": [
+    "Geeth Charan",
+    "Rupsa Dhar",
+    "Shivank Thakur",
+    "Rishi"
+  ],
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
