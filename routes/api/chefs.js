@@ -6,10 +6,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const User = require('../../models/User');
+const Chef = require('../../models/Chef');
 
-// @route    POST api/users
-// @desc     Register User
+// @route    POST api/chefs
+// @desc     Register chefs
 // @access   Public
 
 router.post(
@@ -28,22 +28,22 @@ router.post(
 
         const { name, email, password } = req.body;
         try {
-            //see if users exists
-            let user = await User.findOne({ email });
-            if (user) {
+            //see if chef exists
+            let chef = await Chef.findOne({ email });
+            if (chef) {
                 return res
                     .status(400)
-                    .json({ errors: ['user already exists'] });
+                    .json({ errors: ['chef already exists'] });
             }
 
-            //get user gravatar
+            //get chef gravatar
             const avatar = gravatar.url(email, {
                 s: '200',
                 r: 'pg',
                 d: 'mm'
             });
 
-            user = new User({
+            chef = new Chef({
                 name,
                 email,
                 avatar,
@@ -53,13 +53,13 @@ router.post(
             //Encrypt password
             const salt = await bcrypt.genSalt(10);
 
-            user.password = await bcrypt.hash(password, salt);
+            chef.password = await bcrypt.hash(password, salt);
 
-            await user.save();
+            await chef.save();
 
             const payload = {
-                user: {
-                    id: user.id
+                chef: {
+                    id: chef.id
                 }
             };
 
