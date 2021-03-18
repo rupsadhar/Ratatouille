@@ -135,7 +135,7 @@ router.delete('/', chefauth, async (req, res) => {
 });
 
 // @route    PUT api/shop/menu
-// @desc     Add or modify shop menu
+// @desc     Add shop menu
 // @access   Private
 
 router.put(
@@ -218,5 +218,7 @@ router.put(
         }
     }
 );
+
+// Update(Add/Delete/Change) stuff in shop menu
 
 module.exports = router;
