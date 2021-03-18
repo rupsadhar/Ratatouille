@@ -1,29 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const userauth = require('../../middleware/userauth');
+const foodieauth = require('../../middleware/foodieauth');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-const User = require('../../models/User');
+const Foodie = require('../../models/Foodie');
 
-// @route    GET api/userauth
+// @route    GET api/foodieauth
 // @desc     Test route
 // @access   Public
 
-router.get('/', userauth, async (req, res) => {
+router.get('/', foodieauth, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
-        res.json(user);
+        const foodie = await Foodie.findById(req.foodie.id).select('-password');
+        res.json(foodie);
     } catch {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
 
-// @route    POST api/userauth
-// @desc     Authenticate user and get token
+// @route    POST api/foodieauth
+// @desc     Authenticate foodie and get token
 // @access   Public
 
 router.post(
@@ -38,15 +38,15 @@ router.post(
 
         const { email, password } = req.body;
         try {
-            //see if users exists
-            let user = await User.findOne({ email });
-            if (!user) {
+            //see if foodie exists
+            let foodie = await Foodie.findOne({ email });
+            if (!foodie) {
                 return res
                     .status(400)
                     .json({ errors: ['Invalid Credentials'] });
             }
 
-            const isMatch = await bcrypt.compare(password, user.password);
+            const isMatch = await bcrypt.compare(password, foodie.password);
 
             if (!isMatch) {
                 return res
@@ -55,8 +55,8 @@ router.post(
             }
 
             const payload = {
-                user: {
-                    id: user.id
+                foodie: {
+                    id: foodie.id
                 }
             };
 
