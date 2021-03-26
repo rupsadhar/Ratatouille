@@ -3,11 +3,11 @@
 > Anybody can cook!
 > Order delicious home-made food from chefs near you
 
-This app uses Node.js/Express/MongoDB with Google OAuth for authentication
+This app uses MongoDB/Express/React/Node.js
 
 ## Usage
 
-Add your mongoDB URI and Google OAuth credentials to the config.env file
+Add your mongoDB URI to the config/default.json file
 
 ```
 # Install dependencies
