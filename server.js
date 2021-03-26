@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const logger = require('./middleware/logger')
 
 const app = express();
 
@@ -8,6 +9,7 @@ connectDB();
 
 //Init Middleware
 app.use(express.json({ extended: false }));
+app.use(logger)
 
 app.get('/', (req, res) => res.send('API Running'));
 
